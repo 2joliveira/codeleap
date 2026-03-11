@@ -2,8 +2,7 @@ import { tv, VariantProps } from "tailwind-variants";
 
 export const inputTextVariants = tv({
   base: `
-    h-8 w-full p-2 bg-transparent outline-none text-sm font-normal placeholder:text-gray-100
-    text-black rounded border border-gray-300
+    h-8 w-full p-2 bg-transparent text-sm font-normal text-black placeholder:text-gray-100 border border-gray-300 rounded outline-none
   `,
 });
 
