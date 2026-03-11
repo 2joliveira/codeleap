@@ -1,4 +1,4 @@
-import { Text } from "@/components";
+import { Button, Text } from "@/components";
 
 export default function Home() {
   return (
@@ -6,6 +6,7 @@ export default function Home() {
       <Text as="h1" variant="heading">Welcome to CodeLeap network!</Text>
 
       <Text as="label">Please enter your username</Text>
+      <Button>ENTER</Button>
     </main>
   );
 }
