@@ -5,12 +5,11 @@ const textVariants = tv({
   base: "font-sans leading-[100%] tracking-normal font-normal",
   variants: {
     variant: {
-      heading: "text-[22px] font-bold",
-      paragraph: "text-lg",
+      "heading": "text-[22px] font-bold",
+      "paragraph": "text-lg",
       "label-large": "text-lg font-bold",
       "label-medium": "text-base font-bold",
       "label-small": "text-base",
-      "label-x-small": "text-sm",
     },
   },
   defaultVariants: {

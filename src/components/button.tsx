@@ -1,7 +1,8 @@
 import { tv, VariantProps } from "tailwind-variants";
+import { Text } from "./text";
 
 const buttonVariants = tv({
-  base: "flex items-center justify-center cursor-pointer transition rounded",
+  base: "flex items-center justify-center cursor-pointer transition rounded transition enabled:hover:opacity-80",
   variants: {
     variant: {
       primary: "bg-blue",
@@ -17,6 +18,17 @@ const buttonVariants = tv({
     variant: "primary",
     size: "sm",
     disabled: false,
+  },
+});
+
+const buttonTextVariants = tv({
+  variants: {
+    variant: {
+      primary: "text-white",
+    },
+  },
+  defaultVariants: {
+    variant: "primary",
   },
 });
 
@@ -46,7 +58,9 @@ export function Button({
       disabled={disabled}
       {...props}
     >
-      {children}
+      <Text variant="label-medium" className={buttonTextVariants({ variant })}>
+        {children}
+      </Text>
     </button>
   );
 }
