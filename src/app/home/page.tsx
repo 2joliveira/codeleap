@@ -1,4 +1,4 @@
-import { Button, InputText, InputTextarea, PostCard, Text } from "@/components";
+import { Button, InputText, InputTextarea, PostList, Text } from "@/components";
 
 export default function Home() {
   return (
@@ -28,9 +28,7 @@ export default function Home() {
           </div>
         </form>
 
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        <PostList />
       </div>
     </main>
   );

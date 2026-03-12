@@ -1,10 +1,10 @@
 import { Trash2, SquarePen } from "lucide-react";
-import { ButtonIcon } from "./buttonIcon";
-import { Text } from "./text";
+import { ButtonIcon } from "./ui/buttonIcon";
+import { Text } from "./ui/text";
 
-export function PostCard() {
+export function PostItem() {
   return (
-    <main className="w-full border border-gray-100 rounded-2xl">
+    <li className="w-full border border-gray-100 rounded-2xl">
       <header className="px-6 h-17.5 bg-blue flex items-center justify-between rounded-t-[15px]">
         <Text variant="heading" className="text-white">
           My First Post at CodeLeap Network!
@@ -37,6 +37,6 @@ export function PostCard() {
           lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat.
         </Text>
       </div>
-    </main>
+    </li>
   );
 }

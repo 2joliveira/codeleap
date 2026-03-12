@@ -4,6 +4,7 @@ export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-export const fetcher = (url: string, options: AxiosRequestConfig = {}) => {
-  api.get(url, options).then((response) => response.data);
+export async function fetcher<T>(url?: string, options: AxiosRequestConfig = {}) {
+  const response = await api.get<T>(url ?? "", options);
+  return response.data;
 };
