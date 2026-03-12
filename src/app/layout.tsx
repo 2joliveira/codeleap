@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { ReactQueryProvider } from "@/services/react-query-provider";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,7 +24,7 @@ export default function RootLayout({
         className="bg-gray-50 flex h-screen items-center justify-center"
         suppressHydrationWarning={true}
       >
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
