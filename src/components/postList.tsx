@@ -12,8 +12,8 @@ export function PostList() {
 
   if (!isLoadingPosts && posts.results?.length < 1) {
     return (
-      <div className="w-full mt-10 flex flex-col items-center justify-center ">
-        <Image src={emptyState} alt="Empty List" className="w-50" />
+      <div className="w-full mt-5 flex flex-col items-center justify-center ">
+        <Image src={emptyState} alt="Empty List" className="w-50" loading="eager" />
 
         <Text variant="label-large" className="text-gray-200">Nenhum post encontrado !</Text>
       </div>
