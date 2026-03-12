@@ -2,7 +2,7 @@ import { Button, InputText, InputTextarea, PostCard, Text } from "@/components";
 
 export default function Home() {
   return (
-    <main className="h-screen w-200 bg-white">
+    <main className="w-200 h-full bg-white overflow-y-scroll">
       <header className="h-20 px-8 bg-blue flex items-center">
         <Text as="h1" variant="heading" className="text-white">
           CodeLeap Network
@@ -28,6 +28,8 @@ export default function Home() {
           </div>
         </form>
 
+        <PostCard />
+        <PostCard />
         <PostCard />
       </div>
     </main>
