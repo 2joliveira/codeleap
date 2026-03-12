@@ -1,4 +1,4 @@
-import { Button, InputText, PostCard, Text } from "@/components";
+import { Button, InputText, InputTextarea, PostCard, Text } from "@/components";
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
 
           <div>
             <Text variant="label-small">Content</Text>
-            <InputText placeholder="Content here" className="mt-2 h-18.5" />
+            <InputTextarea placeholder="Content here" className="mt-2" />
           </div>
 
           <div className="w-full flex justify-end">
