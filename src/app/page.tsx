@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, InputText, Text } from "@/components";
+import { useRouter } from "next/navigation";
 
 const signinSchema = z.object({
   username: z.string().min(1, { error: "Nome do usuário é obrigatório !" }),
@@ -12,6 +13,7 @@ const signinSchema = z.object({
 type SignIn = z.infer<typeof signinSchema>;
 
 export default function SignIn() {
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -24,7 +26,8 @@ export default function SignIn() {
   });
 
   function onHandleSubmit(data: SignIn) {
-    console.log(data);
+    sessionStorage.setItem("currentUser", data.username);
+    router.push("/home");
   }
 
   return (

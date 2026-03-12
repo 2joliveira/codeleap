@@ -1,26 +1,34 @@
 "use client";
 
+import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
+import { usePosts } from "@/hooks/usePosts";
 import { PostSchema, postSchema } from "@/models/post";
 import { Button, InputText, InputTextarea, Text } from "./ui";
 
 export function PostForm() {
+  const { createPost } = usePosts();
   const {
     control,
     handleSubmit,
     formState: { isValid },
+    reset,
   } = useForm({
     resolver: zodResolver(postSchema),
     defaultValues: {
       title: "",
       content: "",
-      created_datetime: new Date(),
     },
   });
+  const [isCreatingPost, setIsCreatingPost] = useTransition();
 
   function onHandleSubmit(data: PostSchema) {
-    console.log(data);
+    setIsCreatingPost(async () =>
+      createPost({ ...data, created_datetime: new Date() }),
+    );
+    reset();
   }
 
   return (
@@ -66,7 +74,11 @@ export function PostForm() {
 
       <div className="w-full flex justify-end">
         <Button type="submit" disabled={!isValid}>
-          ENTER
+          {!isCreatingPost ? (
+            "Create"
+          ) : (
+            <Loader size={20} className="text-white animate-spin" />
+          )}
         </Button>
       </div>
     </form>

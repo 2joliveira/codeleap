@@ -26,7 +26,9 @@ export function PostList() {
     </div>
   ) : (
     <ul className="flex flex-col gap-6">
-      <PostItem />
+      {posts.results.map(item => (
+        <PostItem key={item.id} post={item} />
+      ))}
     </ul>
   );
 }
