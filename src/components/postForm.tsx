@@ -1,9 +1,9 @@
 "use client";
 
 import { Controller, useForm } from "react-hook-form";
-import { Button, InputText, InputTextarea, Text } from "./ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PostSchema, postSchema } from "@/models/post";
+import { Button, InputText, InputTextarea, Text } from "./ui";
 
 export function PostForm() {
   const {
@@ -13,9 +13,9 @@ export function PostForm() {
   } = useForm({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      created_datetime: new Date(),
       title: "",
       content: "",
+      created_datetime: new Date(),
     },
   });
 
