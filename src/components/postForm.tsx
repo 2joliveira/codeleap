@@ -3,13 +3,18 @@
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Close } from "@radix-ui/react-dialog";
 import { Loader } from "lucide-react";
 import { usePosts } from "@/hooks/usePosts";
-import { PostSchema, postSchema } from "@/models/post";
+import { Post, PostSchema, postSchema } from "@/models/post";
 import { Button, InputText, InputTextarea, Text } from "./ui";
 
-export function PostForm() {
-  const { createPost } = usePosts();
+interface PostFormProps {
+  post?: Post;
+}
+
+export function PostForm({ post }: PostFormProps) {
+  const { createPost, editPost, isCreatingPost, isEditingPost } = usePosts();
   const {
     control,
     handleSubmit,
@@ -18,25 +23,31 @@ export function PostForm() {
   } = useForm({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      title: "",
-      content: "",
+      title: post?.title || "",
+      content: post?.content || "",
     },
   });
-  const [isCreatingPost, setIsCreatingPost] = useTransition();
+
+  const isEditing = !!post;
 
   function onHandleSubmit(data: PostSchema) {
-    setIsCreatingPost(async () =>
-      createPost({ ...data, created_datetime: new Date() }),
-    );
     reset();
+
+    if (isEditing) return editPost({ id: post!.id, payload: data });
+
+    return createPost({ ...data, created_datetime: new Date() });
   }
 
   return (
     <form
       onSubmit={handleSubmit(onHandleSubmit)}
-      className="p-6 w-full h-83.5 flex flex-col gap-4 border border-gray-100 rounded-2xl"
+      className={
+        isEditing
+          ? "flex flex-col gap-4"
+          : "p-6 w-full h-83.5 flex flex-col gap-4 border border-gray-100 rounded-2xl"
+      }
     >
-      <Text variant="heading">What’s on your mind?</Text>
+      {!isEditing && <Text variant="heading">What’s on your mind?</Text>}
 
       <div>
         <Text variant="label-small">Title</Text>
@@ -73,13 +84,29 @@ export function PostForm() {
       </div>
 
       <div className="w-full flex justify-end">
-        <Button type="submit" disabled={!isValid}>
-          {!isCreatingPost ? (
-            "Create"
-          ) : (
-            <Loader size={20} className="text-white animate-spin" />
-          )}
-        </Button>
+        {isEditing ? (
+          <div className="flex gap-4">
+            <Close asChild>
+              <Button variant="ghost">Cancel</Button>
+            </Close>
+
+            <Button type="submit" variant="secondary" disabled={!isValid}>
+              {!isCreatingPost ? (
+                "Save"
+              ) : (
+                <Loader size={20} className="text-white animate-spin" />
+              )}
+            </Button>
+          </div>
+        ) : (
+          <Button type="submit" disabled={!isValid}>
+            {!isCreatingPost ? (
+              "Create"
+            ) : (
+              <Loader size={20} className="text-white animate-spin" />
+            )}
+          </Button>
+        )}
       </div>
     </form>
   );

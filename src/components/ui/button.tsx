@@ -6,6 +6,10 @@ const buttonVariants = tv({
   variants: {
     variant: {
       primary: "bg-blue",
+      secondary: "bg-green",
+      destructive: "bg-red",
+      ghost: "bg-white border border-gray-200",
+
     },
     size: {
       sm: "h-8 w-[111px]",
@@ -25,6 +29,9 @@ const buttonTextVariants = tv({
   variants: {
     variant: {
       primary: "text-white",
+      destructive: "text-white",
+      secondary: "text-white",
+      ghost: "text-black"
     },
   },
   defaultVariants: {
