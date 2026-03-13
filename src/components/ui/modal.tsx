@@ -7,11 +7,12 @@ type ModalProps = {
   title: string;
   description?: string;
   children: ReactNode;
+  open?: boolean;
 };
 
-export function Modal({ trigger, title, description, children }: ModalProps) {
+export function Modal({ trigger, title, description, open, children }: ModalProps) {
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open}>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
 
       <Dialog.Portal>

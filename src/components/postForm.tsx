@@ -1,6 +1,5 @@
 "use client";
 
-import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Close } from "@radix-ui/react-dialog";
@@ -11,9 +10,10 @@ import { Button, InputText, InputTextarea, Text } from "./ui";
 
 interface PostFormProps {
   post?: Post;
+  onSuccess?: () => void
 }
 
-export function PostForm({ post }: PostFormProps) {
+export function PostForm({ post, onSuccess }: PostFormProps) {
   const { createPost, editPost, isCreatingPost, isEditingPost } = usePosts();
   const {
     control,
@@ -31,11 +31,12 @@ export function PostForm({ post }: PostFormProps) {
   const isEditing = !!post;
 
   function onHandleSubmit(data: PostSchema) {
+    
+    if (isEditing) editPost({ id: post!.id, payload: data });
+    else createPost({ ...data, created_datetime: new Date() });
+    
     reset();
-
-    if (isEditing) return editPost({ id: post!.id, payload: data });
-
-    return createPost({ ...data, created_datetime: new Date() });
+    onSuccess?.();
   }
 
   return (
@@ -44,7 +45,7 @@ export function PostForm({ post }: PostFormProps) {
       className={
         isEditing
           ? "flex flex-col gap-4"
-          : "p-6 w-full h-83.5 flex flex-col gap-4 border border-gray-100 rounded-2xl"
+          : "p-6 w-full h-full sm:h-83.5 flex flex-col gap-4 border border-gray-100 rounded-2xl"
       }
     >
       {!isEditing && <Text variant="heading">What’s on your mind?</Text>}
@@ -91,7 +92,7 @@ export function PostForm({ post }: PostFormProps) {
             </Close>
 
             <Button type="submit" variant="secondary" disabled={!isValid}>
-              {!isCreatingPost ? (
+              {!isEditingPost ? (
                 "Save"
               ) : (
                 <Loader size={20} className="text-white animate-spin" />

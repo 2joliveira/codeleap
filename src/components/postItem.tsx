@@ -1,17 +1,20 @@
-import { Trash2, SquarePen } from "lucide-react";
-import { Text } from "./ui/text";
-import { Post } from "@/models/post";
-import { getDistanceToNow } from "@/utils/getDistanceToNow ";
-import { Button, ButtonIcon, Modal } from "./ui";
+"use client";
+
+import { useState } from "react";
 import { Close } from "@radix-ui/react-dialog";
-import { PostForm } from "./postForm";
+import { Trash2, SquarePen } from "lucide-react";
+import { Post } from "@/models/post";
 import { usePosts } from "@/hooks/usePosts";
+import { getDistanceToNow } from "@/utils/getDistanceToNow ";
+import { Button, ButtonIcon, Modal, Text } from "./ui";
+import { PostForm } from "./postForm";
 
 interface PostItemProps {
   post: Post;
 }
 
 export function PostItem({ post }: PostItemProps) {
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const currentUser = sessionStorage.getItem("currentUser");
   const { deletePost } = usePosts();
 
@@ -21,7 +24,7 @@ export function PostItem({ post }: PostItemProps) {
 
   return (
     <li className="w-full border border-gray-100 rounded-2xl">
-      <header className="px-6 h-17.5 bg-blue flex items-center justify-between rounded-t-[15px]">
+      <header className="px-6 h-full min-h-17.5 sm:h-17.5 bg-blue flex items-center justify-between gap-4 rounded-t-[15px]">
         <Text variant="heading" className="text-white">
           {post.title}
         </Text>
@@ -45,8 +48,17 @@ export function PostItem({ post }: PostItemProps) {
               </div>
             </Modal>
 
-            <Modal trigger={<ButtonIcon icon={SquarePen} />} title="Edit item">
-              <PostForm post={post} />
+            <Modal
+              trigger={
+                <ButtonIcon
+                  onClick={() => setEditModalOpen(true)}
+                  icon={SquarePen}
+                />
+              }
+              title="Edit item"
+              open={editModalOpen}
+            >
+              <PostForm post={post} onSuccess={() => setEditModalOpen(false)} />
             </Modal>
           </div>
         )}
