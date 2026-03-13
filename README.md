@@ -93,7 +93,7 @@ src/
 
 ## API
 
-A aplicação utiliza uma API REST para gerenciar posts. As rotas estão definidas em `src/app/api/posts/`.
+A aplicação utiliza uma API REST para gerenciar posts.
 
 ## Contribuição
 
