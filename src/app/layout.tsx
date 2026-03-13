@@ -5,7 +5,7 @@ import { ReactQueryProvider } from "@/services/react-query-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Codelap",
+  title: "Codelap | Test",
 };
 
 const roboto = Roboto({
