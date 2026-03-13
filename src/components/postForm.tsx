@@ -10,10 +10,10 @@ import { Button, InputText, InputTextarea, Text } from "./ui";
 
 interface PostFormProps {
   post?: Post;
-  onSuccess?: () => void
+  onCloseModal?: () => void
 }
 
-export function PostForm({ post, onSuccess }: PostFormProps) {
+export function PostForm({ post, onCloseModal }: PostFormProps) {
   const { createPost, editPost, isCreatingPost, isEditingPost } = usePosts();
   const {
     control,
@@ -36,7 +36,7 @@ export function PostForm({ post, onSuccess }: PostFormProps) {
     else createPost({ ...data, created_datetime: new Date() });
     
     reset();
-    onSuccess?.();
+    onCloseModal?.();
   }
 
   return (
@@ -88,7 +88,7 @@ export function PostForm({ post, onSuccess }: PostFormProps) {
         {isEditing ? (
           <div className="flex gap-4">
             <Close asChild>
-              <Button variant="ghost">Cancel</Button>
+              <Button onClick={onCloseModal} variant="ghost">Cancel</Button>
             </Close>
 
             <Button type="submit" variant="secondary" disabled={!isValid}>

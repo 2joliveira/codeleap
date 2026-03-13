@@ -58,7 +58,7 @@ export function PostItem({ post }: PostItemProps) {
               title="Edit item"
               open={editModalOpen}
             >
-              <PostForm post={post} onSuccess={() => setEditModalOpen(false)} />
+              <PostForm post={post} onCloseModal={() => setEditModalOpen(false)} />
             </Modal>
           </div>
         )}
