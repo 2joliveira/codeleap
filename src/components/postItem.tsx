@@ -21,7 +21,7 @@ export function PostItem({ post }: PostItemProps) {
 
   return (
     <li className="w-full border border-gray-100 rounded-2xl">
-      <header className="px-6 h-17.5 bg-blue flex items-center justify-between rounded-t-[15px]">
+      <header className="px-6 h-full min-h-17.5 sm:h-17.5 bg-blue flex items-center justify-between gap-4 rounded-t-[15px]">
         <Text variant="heading" className="text-white">
           {post.title}
         </Text>

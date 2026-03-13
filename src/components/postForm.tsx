@@ -44,7 +44,7 @@ export function PostForm({ post }: PostFormProps) {
       className={
         isEditing
           ? "flex flex-col gap-4"
-          : "p-6 w-full h-83.5 flex flex-col gap-4 border border-gray-100 rounded-2xl"
+          : "p-6 w-full h-full sm:h-83.5 flex flex-col gap-4 border border-gray-100 rounded-2xl"
       }
     >
       {!isEditing && <Text variant="heading">What’s on your mind?</Text>}
