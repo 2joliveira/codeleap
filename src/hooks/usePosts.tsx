@@ -31,7 +31,7 @@ export function usePosts() {
 
   const deletePostMutation = useMutation({
     mutationFn: async (id: number) => {
-      return api.delete(`${id}`);
+      return api.delete(`/${id}/`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
@@ -46,7 +46,7 @@ export function usePosts() {
       id: number;
       payload: PostSchema;
     }) => {
-      return api.patch(`${id}`, payload);
+      return api.patch(`/${id}/`, payload);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
