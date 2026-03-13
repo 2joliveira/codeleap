@@ -1,34 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CodeLeap Network
 
-## Getting Started
+Uma aplicação web simples de rede social desenvolvida com Next.js, onde usuários podem criar e visualizar posts após fazer login com um nome de usuário.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Criar Posts**: Formulário para criar novos posts com título e conteúdo.
+- **Visualizar Posts**: Lista de posts criados, exibindo o autor, título, conteúdo e tempo decorrido desde a publicação.
+- **Interface Responsiva**: Design moderno usando Tailwind CSS e componentes reutilizáveis.
+
+## Tecnologias Utilizadas
+
+- **Next.js 16**: Framework React para aplicações web.
+- **TypeScript**: Tipagem estática para JavaScript.
+- **Tailwind CSS**: Framework CSS para estilização.
+- **React Query**: Gerenciamento de estado e cache para requisições API.
+- **Axios**: Cliente HTTP para requisições.
+- **React Hook Form + Zod**: Validação de formulários.
+- **Radix UI**: Componentes de UI acessíveis.
+- **Lucide React**: Ícones.
+- **Date-fns**: Manipulação de datas.
+
+## Instalação
+
+1. Clone o repositório:
+   ```bash
+   git clone <url-do-repositorio>
+   cd codeleap
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   # ou
+   yarn install
+   # ou
+   pnpm install
+   ```
+
+3. Execute o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   # ou
+   pnpm dev
+   ```
+
+4. Abra [http://localhost:3000](http://localhost:3000) no navegador.
+
+## Scripts Disponíveis
+
+- `npm run dev`: Inicia o servidor de desenvolvimento.
+- `npm run build`: Compila a aplicação para produção.
+- `npm run start`: Inicia o servidor de produção.
+- `npm run lint`: Executa o linter ESLint.
+
+## Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── globals.css         # Estilos globais
+│   ├── layout.tsx          # Layout principal
+│   ├── page.tsx            # Página de login
+│   └── home/
+│       └── page.tsx        # Página principal com posts
+├── assets/                 # Assets estáticos
+├── components/
+│   ├── ui/                 # Componentes de UI reutilizáveis
+│   ├── postForm.tsx        # Formulário para criar posts
+│   ├── postItem.tsx        # Componente para exibir um post
+│   ├── postList.tsx        # Lista de posts
+│   └── index.ts            # Exportações dos componentes
+├── hooks/
+│   └── usePosts.tsx        # Hook personalizado para posts
+├── models/
+│   └── post.ts             # Modelo de dados para posts
+├── services/
+│   ├── api.ts              # Configuração da API
+│   └── react-query-provider.tsx # Provider do React Query
+└── utils/
+    └── getDistanceToNow.ts # Utilitário para datas
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como Usar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Na página inicial, insira um nome de usuário e clique em "ENTER".
+2. Na página home, você pode:
+   - Criar um novo post usando o formulário no topo.
+   - Visualizar posts existentes na lista abaixo.
+3. Os posts mostram o nome do autor, título, conteúdo e há quanto tempo foram publicados.
 
-## Learn More
+## API
 
-To learn more about Next.js, take a look at the following resources:
+A aplicação utiliza uma API REST para gerenciar posts. As rotas estão definidas em `src/app/api/posts/`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contribuição
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Faça um fork do projeto.
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
+3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`).
+4. Push para a branch (`git push origin feature/nova-feature`).
+5. Abra um Pull Request.
