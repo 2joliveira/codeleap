@@ -4,7 +4,6 @@ Uma aplicação web simples de rede social desenvolvida com Next.js, onde usuár
 
 ## Funcionalidades
 
-- **Login Simples**: Usuários fazem login inserindo um nome de usuário.
 - **Criar Posts**: Formulário para criar novos posts com título e conteúdo.
 - **Visualizar Posts**: Lista de posts criados, exibindo o autor, título, conteúdo e tempo decorrido desde a publicação.
 - **Interface Responsiva**: Design moderno usando Tailwind CSS e componentes reutilizáveis.
@@ -61,7 +60,6 @@ Uma aplicação web simples de rede social desenvolvida com Next.js, onde usuár
 ```
 src/
 ├── app/
-│   ├── api/posts/          # API routes para posts
 │   ├── globals.css         # Estilos globais
 │   ├── layout.tsx          # Layout principal
 │   ├── page.tsx            # Página de login
@@ -104,7 +102,3 @@ A aplicação utiliza uma API REST para gerenciar posts. As rotas estão definid
 3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`).
 4. Push para a branch (`git push origin feature/nova-feature`).
 5. Abra um Pull Request.
-
-## Licença
-
-Este projeto é privado e não possui licença pública.
