@@ -1,14 +1,18 @@
 import { Trash2, SquarePen } from "lucide-react";
-import { ButtonIcon } from "./ui/buttonIcon";
 import { Text } from "./ui/text";
 import { Post } from "@/models/post";
 import { getDistanceToNow } from "@/utils/getDistanceToNow ";
+import { Button, ButtonIcon, Modal } from "./ui";
+import { Close } from "@radix-ui/react-dialog";
+import { PostForm } from "./postForm";
 
 interface PostItemProps {
   post: Post;
 }
 
 export function PostItem({ post }: PostItemProps) {
+  const currentUser = sessionStorage.getItem("currentUser");
+
   return (
     <li className="w-full border border-gray-100 rounded-2xl">
       <header className="px-6 h-17.5 bg-blue flex items-center justify-between rounded-t-[15px]">
@@ -16,10 +20,26 @@ export function PostItem({ post }: PostItemProps) {
           {post.title}
         </Text>
 
-        {post.username === sessionStorage.getItem("currentUser") && (
+        {post.username === currentUser && (
           <div className="flex items-center justify-center gap-4">
-            <ButtonIcon icon={Trash2} />
-            <ButtonIcon icon={SquarePen} />
+            <Modal
+              trigger={<ButtonIcon icon={Trash2} />}
+              title="Are you sure you want to delete this item?"
+            >
+              <div className="w-full mt-10 flex items-center justify-end gap-4">
+                <Close asChild>
+                  <Button variant="ghost">Cancel</Button>
+                </Close>
+
+                <Close asChild>
+                  <Button variant="destructive">Delete</Button>
+                </Close>
+              </div>
+            </Modal>
+
+            <Modal trigger={<ButtonIcon icon={SquarePen} />} title="Edit item">
+              <PostForm post={post} />
+            </Modal>
           </div>
         )}
       </header>
