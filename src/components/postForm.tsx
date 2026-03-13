@@ -14,7 +14,7 @@ interface PostFormProps {
 }
 
 export function PostForm({ post }: PostFormProps) {
-  const { createPost } = usePosts();
+  const { createPost, editPost, isCreatingPost, isEditingPost } = usePosts();
   const {
     control,
     handleSubmit,
@@ -25,18 +25,17 @@ export function PostForm({ post }: PostFormProps) {
     defaultValues: {
       title: post?.title || "",
       content: post?.content || "",
-      created_datetime: post?.created_datetime || undefined,
     },
   });
-  const [isCreatingPost, setIsCreatingPost] = useTransition();
 
   const isEditing = !!post;
 
   function onHandleSubmit(data: PostSchema) {
-    setIsCreatingPost(async () =>
-      createPost({ ...data, created_datetime: new Date() }),
-    );
     reset();
+
+    if (isEditing) return editPost({ id: post!.id, payload: data });
+
+    return createPost({ ...data, created_datetime: new Date() });
   }
 
   return (
@@ -91,9 +90,13 @@ export function PostForm({ post }: PostFormProps) {
               <Button variant="ghost">Cancel</Button>
             </Close>
 
-            <Close asChild>
-              <Button variant="secondary">Save</Button>
-            </Close>
+            <Button type="submit" variant="secondary" disabled={!isValid}>
+              {!isCreatingPost ? (
+                "Save"
+              ) : (
+                <Loader size={20} className="text-white animate-spin" />
+              )}
+            </Button>
           </div>
         ) : (
           <Button type="submit" disabled={!isValid}>

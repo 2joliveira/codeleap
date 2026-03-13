@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { api, fetcher } from "@/services/api";
 import { Post, PostSchema } from "@/models/post";
 
@@ -11,24 +11,58 @@ interface ResponseProps {
 
 export function usePosts() {
   const queryClient = useQueryClient();
+
   const { data, isLoading } = useQuery<ResponseProps>({
     queryKey: ["posts"],
     queryFn: () => fetcher<ResponseProps>(),
   });
 
-  async function createPost(payload: PostSchema) {
-    try {
-      await api.post<Post>("", { ...payload, username: sessionStorage.getItem("currentUser") });
-
+  const createPostMutation = useMutation({
+    mutationFn: async (payload: PostSchema) => {
+      return api.post("", {
+        ...payload,
+        username: sessionStorage.getItem("currentUser"),
+      });
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+    },
+  });
+
+  const deletePostMutation = useMutation({
+    mutationFn: async (id: number) => {
+      return api.delete(`/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
+
+  const editPostMutation = useMutation({
+    mutationFn: async ({
+      id,
+      payload,
+    }: {
+      id: number;
+      payload: PostSchema;
+    }) => {
+      return api.patch(`/${id}`, payload);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
 
   return {
     posts: data || ({} as ResponseProps),
     isLoadingPosts: isLoading,
-    createPost,
+
+    createPost: createPostMutation.mutateAsync,
+    deletePost: deletePostMutation.mutateAsync,
+    editPost: editPostMutation.mutateAsync,
+
+    isCreatingPost: createPostMutation.isPending,
+    isDeletingPost: deletePostMutation.isPending,
+    isEditingPost: editPostMutation.isPending,
   };
 }

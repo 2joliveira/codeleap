@@ -5,6 +5,7 @@ import { getDistanceToNow } from "@/utils/getDistanceToNow ";
 import { Button, ButtonIcon, Modal } from "./ui";
 import { Close } from "@radix-ui/react-dialog";
 import { PostForm } from "./postForm";
+import { usePosts } from "@/hooks/usePosts";
 
 interface PostItemProps {
   post: Post;
@@ -12,6 +13,11 @@ interface PostItemProps {
 
 export function PostItem({ post }: PostItemProps) {
   const currentUser = sessionStorage.getItem("currentUser");
+  const { deletePost } = usePosts();
+
+  function handleRemovePost() {
+    deletePost(post.id);
+  }
 
   return (
     <li className="w-full border border-gray-100 rounded-2xl">
@@ -32,7 +38,9 @@ export function PostItem({ post }: PostItemProps) {
                 </Close>
 
                 <Close asChild>
-                  <Button variant="destructive">Delete</Button>
+                  <Button variant="destructive" onClick={handleRemovePost}>
+                    Delete
+                  </Button>
                 </Close>
               </div>
             </Modal>
